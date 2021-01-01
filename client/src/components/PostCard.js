@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Button, Card, Icon, Label, Image } from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import moment from 'moment';
 
 import { AuthContext } from '../context/auth';
@@ -13,6 +13,12 @@ function PostCard(
 }) {
 
     const { user } = useContext(AuthContext);
+
+    const history = useHistory()
+
+    function deletePostCallback() {
+      history.push('/');
+    }
 
     return (
         <Card fluid>
@@ -40,7 +46,7 @@ function PostCard(
             </Label>
           </Button>
         </MyPopup>
-        {user && user.username === username && <DeleteButton postId={id} />}
+        {user && user.username === username && <DeleteButton callback={deletePostCallback} postId={id} />}
       </Card.Content>
     </Card>
     )
